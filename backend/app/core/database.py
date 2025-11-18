@@ -208,6 +208,10 @@ async def init_databases():
     else:
         logger.error("Neo4j connection verification failed")
 
+    # Initialize Neo4j schema
+    from .neo4j_schema import Neo4jSchema
+    await Neo4jSchema.initialize_schema(neo4j_db._async_driver)
+
     # Connect to PostgreSQL
     postgres_db.connect()
     await postgres_db.connect_async()
